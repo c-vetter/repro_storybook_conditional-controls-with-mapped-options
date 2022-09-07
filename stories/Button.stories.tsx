@@ -27,7 +27,7 @@ const conditions = {
   exists: {
     true: {
       children: {
-        undefined: { arg: false, control: true, expect: false },
+        undefined: { arg: false, control: true, expect: true },
         null: { arg: true, control: true, expect: true },
         true: { arg: true, control: true, expect: true },
         false: { arg: true, control: true, expect: true },
@@ -41,7 +41,7 @@ const conditions = {
     },
     false: {
       children: {
-        undefined: { arg: true, control: false, expect: true },
+        undefined: { arg: true, control: false, expect: false },
         null: { arg: false, control: false, expect: false },
         true: { arg: false, control: false, expect: false },
         false: { arg: false, control: false, expect: false },
@@ -57,10 +57,10 @@ const conditions = {
   truthy: {
     true: {
       children: {
-        undefined: { arg: false, control: true, expect: false },
-        null: { arg: false, control: true, expect: false },
+        undefined: { arg: false, control: true, expect: true },
+        null: { arg: false, control: true, expect: true },
         true: { arg: true, control: true, expect: true },
-        false: { arg: false, control: true, expect: false },
+        false: { arg: false, control: true, expect: true },
         string: { arg: true, control: true, expect: true },
         element: { arg: true, control: true, expect: true },
       },
@@ -71,10 +71,10 @@ const conditions = {
     },
     false: {
       children: {
-        undefined: { arg: true, control: false, expect: true },
-        null: { arg: true, control: false, expect: true },
+        undefined: { arg: true, control: false, expect: false },
+        null: { arg: true, control: false, expect: false },
         true: { arg: false, control: false, expect: false },
-        false: { arg: true, control: false, expect: true },
+        false: { arg: true, control: false, expect: false },
         string: { arg: false, control: false, expect: false },
         element: { arg: false, control: false, expect: false },
       },
@@ -87,7 +87,7 @@ const conditions = {
   eq: {
     string: {
       children: {
-        undefined: { arg: false, control: true, expect: false },
+        undefined: { arg: false, control: true, expect: true },
         null: { arg: false, control: false, expect: false },
         true: { arg: false, control: false, expect: false },
         false: { arg: false, control: false, expect: false },
@@ -101,7 +101,7 @@ const conditions = {
     },
     value: {
       children: {
-        undefined: { arg: false, control: true, expect: true },
+        undefined: { arg: false, control: true, expect: false },
         null: { arg: false, control: true, expect: false },
         true: { arg: true, control: true, expect: false },
         false: { arg: false, control: true, expect: false },
@@ -117,7 +117,7 @@ const conditions = {
   neq: {
     string: {
       children: {
-        undefined: { arg: true, control: false, expect: true },
+        undefined: { arg: true, control: false, expect: false },
         null: { arg: true, control: true, expect: true },
         true: { arg: true, control: true, expect: true },
         false: { arg: true, control: true, expect: true },
@@ -131,7 +131,7 @@ const conditions = {
     },
     value: {
       children: {
-        undefined: { arg: false, control: true, expect: false },
+        undefined: { arg: false, control: true, expect: true },
         null: { arg: false, control: true, expect: true },
         true: { arg: true, control: true, expect: true },
         false: { arg: false, control: true, expect: true },
