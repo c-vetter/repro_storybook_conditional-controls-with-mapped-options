@@ -28,3 +28,27 @@
   font-size: 16px;
   padding: 12px 24px;
 }
+
+strong {
+  font-size: 1.2em;
+}
+
+.control-shown { color: blue }
+.control-hidden { color: grey }
+.arg-applied { color: blue }
+.arg-ignored { color: grey }
+.good { color: green }
+.bad { color: red }
+
+.good, .bad { font-weight: bold }
+
+.control-shown,
+.control-hidden,
+.arg-applied,
+.arg-ignored,
+.good,
+.bad
+{
+  font-size: 1.2em;
+  text-decoration: none;
+}
