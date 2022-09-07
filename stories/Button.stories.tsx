@@ -85,7 +85,7 @@ const conditions = {
     },
   },
   eq: {
-    string: {
+    undefined: {
       children: {
         undefined: { arg: false, control: true, expect: true },
         null: { arg: false, control: false, expect: false },
@@ -99,23 +99,65 @@ const conditions = {
         defined: { arg: false, control: false, expect: false },
       },
     },
-    value: {
+    null: {
       children: {
-        undefined: { arg: false, control: true, expect: false },
-        null: { arg: false, control: true, expect: false },
-        true: { arg: true, control: true, expect: false },
-        false: { arg: false, control: true, expect: false },
-        string: { arg: true, control: true, expect: false },
-        element: { arg: true, control: true, expect: false },
+        undefined: { arg: false, control: false, expect: false },
+        null: { arg: false, control: true, expect: true },
+        true: { arg: false, control: false, expect: false },
+        false: { arg: false, control: false, expect: false },
+        string: { arg: false, control: false, expect: false },
+        element: { arg: false, control: false, expect: false },
       },
       size: {
-        undefined: { arg: false, control: false, expect: true },
-        defined: { arg: true, control: true, expect: false },
+        undefined: { arg: false, control: false, expect: false },
+        defined: { arg: false, control: false, expect: false },
+      },
+    },
+    true: {
+      children: {
+        undefined: { arg: false, control: false, expect: false },
+        null: { arg: false, control: false, expect: false },
+        true: { arg: false, control: true, expect: true },
+        false: { arg: false, control: false, expect: false },
+        string: { arg: false, control: false, expect: false },
+        element: { arg: false, control: false, expect: false },
+      },
+      size: {
+        undefined: { arg: false, control: false, expect: false },
+        defined: { arg: false, control: false, expect: false },
+      },
+    },
+    false: {
+      children: {
+        undefined: { arg: false, control: false, expect: false },
+        null: { arg: false, control: false, expect: false },
+        true: { arg: false, control: false, expect: false },
+        false: { arg: false, control: true, expect: true },
+        string: { arg: false, control: false, expect: false },
+        element: { arg: false, control: false, expect: false },
+      },
+      size: {
+        undefined: { arg: false, control: false, expect: false },
+        defined: { arg: false, control: false, expect: false },
+      },
+    },
+    string: {
+      children: {
+        undefined: { arg: false, control: false, expect: false },
+        null: { arg: false, control: false, expect: false },
+        true: { arg: false, control: false, expect: false },
+        false: { arg: false, control: false, expect: false },
+        string: { arg: false, control: true, expect: true },
+        element: { arg: false, control: false, expect: false },
+      },
+      size: {
+        undefined: { arg: false, control: false, expect: false },
+        defined: { arg: false, control: false, expect: false },
       },
     },
   },
   neq: {
-    string: {
+    undefined: {
       children: {
         undefined: { arg: true, control: false, expect: false },
         null: { arg: true, control: true, expect: true },
@@ -129,28 +171,72 @@ const conditions = {
         defined: { arg: true, control: true, expect: true },
       },
     },
-    value: {
+    null: {
       children: {
-        undefined: { arg: false, control: true, expect: true },
-        null: { arg: false, control: true, expect: true },
+        undefined: { arg: true, control: true, expect: true },
+        null: { arg: true, control: false, expect: false },
         true: { arg: true, control: true, expect: true },
-        false: { arg: false, control: true, expect: true },
+        false: { arg: true, control: true, expect: true },
         string: { arg: true, control: true, expect: true },
         element: { arg: true, control: true, expect: true },
       },
       size: {
-        undefined: { arg: false, control: false, expect: false },
+        undefined: { arg: true, control: true, expect: true },
+        defined: { arg: true, control: true, expect: true },
+      },
+    },
+    true: {
+      children: {
+        undefined: { arg: true, control: true, expect: true },
+        null: { arg: true, control: true, expect: true },
+        true: { arg: true, control: false, expect: false },
+        false: { arg: true, control: true, expect: true },
+        string: { arg: true, control: true, expect: true },
+        element: { arg: true, control: true, expect: true },
+      },
+      size: {
+        undefined: { arg: true, control: true, expect: true },
+        defined: { arg: true, control: true, expect: true },
+      },
+    },
+    false: {
+      children: {
+        undefined: { arg: true, control: true, expect: true },
+        null: { arg: true, control: true, expect: true },
+        true: { arg: true, control: true, expect: true },
+        false: { arg: true, control: false, expect: false },
+        string: { arg: true, control: true, expect: true },
+        element: { arg: true, control: true, expect: true },
+      },
+      size: {
+        undefined: { arg: true, control: true, expect: true },
+        defined: { arg: true, control: true, expect: true },
+      },
+    },
+    string: {
+      children: {
+        undefined: { arg: true, control: true, expect: true },
+        null: { arg: true, control: true, expect: true },
+        true: { arg: true, control: true, expect: true },
+        false: { arg: true, control: true, expect: true },
+        string: { arg: true, control: false, expect: false },
+        element: { arg: true, control: true, expect: true },
+      },
+      size: {
+        undefined: { arg: true, control: true, expect: true },
         defined: { arg: true, control: true, expect: true },
       },
     },
   },
 }
 
-const conditionalValues = {
+const mapping = {
+  undefined: undefined,
+  null: null,
   true: true,
   false: false,
-  value: undefined,
-  string: `undefined`,
+  string: `String`,
+  element: <strong>element</strong>,
 }
 
 const data = Object.entries(conditions)
@@ -166,7 +252,7 @@ const data = Object.entries(conditions)
 )
 .map(({ operator, value, children, size }) => ({
   operator,
-  value: conditionalValues[value],
+  value: operator.endsWith(`q`) ? value : mapping[value],
   children,
   size,
   argTypeLabel: `${
@@ -248,14 +334,7 @@ export default {
     children: {
       defaultValue: `undefined`,
       options,
-      mapping: {
-        undefined: undefined,
-        null: null,
-        true: true,
-        false: false,
-        string: `String`,
-        element: <strong>element</strong>,
-      },
+      mapping,
       control: {
         type: `radio`,
       },
