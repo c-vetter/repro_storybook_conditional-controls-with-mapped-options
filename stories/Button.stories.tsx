@@ -7,8 +7,10 @@ const controlShown = `<abbr className="control-shown" title="Control Shown">⦿<
 const controlHidden = `<abbr className="control-hidden" title="Control Hidden">⦾</abbr>`
 const argApplied = `<abbr className="arg-applied" title="Argument Applied">⊜</abbr>`
 const argIgnored = `<abbr className="arg-ignored" title="Argument Ignored">⦶</abbr>`
-const good = `<abbr className="good" title="Control and Arg in sync">✔</abbr>`
-const bad = `<abbr className="bad" title="Control and Arg out of sync">✘</abbr>`
+const same = `<abbr className="same" title="Control and Arg in sync">=</abbr>`
+const different = `<abbr className="different" title="Control and Arg out of sync">≠</abbr>`
+const good = `<abbr className="good" title="Control and Arg as expected">✔</abbr>`
+const bad = `<abbr className="bad" title="Control and Arg wrong">✘</abbr>`
 
 const withControl = {
   true: controlShown,
@@ -23,120 +25,120 @@ const conditions = {
   exists: {
     true: {
       children: {
-        undefined: { arg: false, control: true },
-        null: { arg: true, control: true },
-        true: { arg: true, control: true },
-        false: { arg: true, control: true },
-        string: { arg: true, control: true },
-        element: { arg: true, control: true },
+        undefined: { arg: false, control: true, expect: false },
+        null: { arg: true, control: true, expect: true },
+        true: { arg: true, control: true, expect: true },
+        false: { arg: true, control: true, expect: true },
+        string: { arg: true, control: true, expect: true },
+        element: { arg: true, control: true, expect: true },
       },
       size: {
-        undefined: { arg: false, control: false },
-        set: { arg: true, control: true },
+        undefined: { arg: false, control: false, expect: false },
+        defined: { arg: true, control: true, expect: true },
       },
     },
     false: {
       children: {
-        undefined: { arg: true, control: false },
-        null: { arg: false, control: false },
-        true: { arg: false, control: false },
-        false: { arg: false, control: false },
-        string: { arg: false, control: false },
-        element: { arg: false, control: false },
+        undefined: { arg: true, control: false, expect: true },
+        null: { arg: false, control: false, expect: false },
+        true: { arg: false, control: false, expect: false },
+        false: { arg: false, control: false, expect: false },
+        string: { arg: false, control: false, expect: false },
+        element: { arg: false, control: false, expect: false },
       },
       size: {
-        undefined: { arg: true, control: true },
-        set: { arg: false, control: false },
+        undefined: { arg: true, control: true, expect: true },
+        defined: { arg: false, control: false, expect: false },
       },
     },
   },
   truthy: {
     true: {
       children: {
-        undefined: { arg: false, control: true },
-        null: { arg: false, control: true },
-        true: { arg: true, control: true },
-        false: { arg: false, control: true },
-        string: { arg: true, control: true },
-        element: { arg: true, control: true },
+        undefined: { arg: false, control: true, expect: false },
+        null: { arg: false, control: true, expect: false },
+        true: { arg: true, control: true, expect: true },
+        false: { arg: false, control: true, expect: false },
+        string: { arg: true, control: true, expect: true },
+        element: { arg: true, control: true, expect: true },
       },
       size: {
-        undefined: { arg: false, control: false },
-        set: { arg: true, control: true },
+        undefined: { arg: false, control: false, expect: false },
+        defined: { arg: true, control: true, expect: true },
       },
     },
     false: {
       children: {
-        undefined: { arg: true, control: false },
-        null: { arg: true, control: false },
-        true: { arg: false, control: false },
-        false: { arg: true, control: false },
-        string: { arg: false, control: false },
-        element: { arg: false, control: false },
+        undefined: { arg: true, control: false, expect: true },
+        null: { arg: true, control: false, expect: true },
+        true: { arg: false, control: false, expect: false },
+        false: { arg: true, control: false, expect: true },
+        string: { arg: false, control: false, expect: false },
+        element: { arg: false, control: false, expect: false },
       },
       size: {
-        undefined: { arg: true, control: true },
-        set: { arg: false, control: false },
+        undefined: { arg: true, control: true, expect: true },
+        defined: { arg: false, control: false, expect: false },
       },
     },
   },
   eq: {
     string: {
       children: {
-        undefined: { arg: false, control: true },
-        null: { arg: false, control: false },
-        true: { arg: false, control: false },
-        false: { arg: false, control: false },
-        string: { arg: false, control: false },
-        element: { arg: false, control: false },
+        undefined: { arg: false, control: true, expect: false },
+        null: { arg: false, control: false, expect: false },
+        true: { arg: false, control: false, expect: false },
+        false: { arg: false, control: false, expect: false },
+        string: { arg: false, control: false, expect: false },
+        element: { arg: false, control: false, expect: false },
       },
       size: {
-        undefined: { arg: false, control: false },
-        set: { arg: false, control: false },
+        undefined: { arg: false, control: false, expect: false },
+        defined: { arg: false, control: false, expect: false },
       },
     },
     value: {
       children: {
-        undefined: { arg: false, control: true },
-        null: { arg: false, control: true },
-        true: { arg: true, control: true },
-        false: { arg: false, control: true },
-        string: { arg: true, control: true },
-        element: { arg: true, control: true },
+        undefined: { arg: false, control: true, expect: true },
+        null: { arg: false, control: true, expect: false },
+        true: { arg: true, control: true, expect: false },
+        false: { arg: false, control: true, expect: false },
+        string: { arg: true, control: true, expect: false },
+        element: { arg: true, control: true, expect: false },
       },
       size: {
-        undefined: { arg: false, control: false },
-        set: { arg: true, control: true },
+        undefined: { arg: false, control: false, expect: true },
+        defined: { arg: true, control: true, expect: false },
       },
     },
   },
   neq: {
     string: {
       children: {
-        undefined: { arg: true, control: false },
-        null: { arg: true, control: true },
-        true: { arg: true, control: true },
-        false: { arg: true, control: true },
-        string: { arg: true, control: true },
-        element: { arg: true, control: true },
+        undefined: { arg: true, control: false, expect: true },
+        null: { arg: true, control: true, expect: true },
+        true: { arg: true, control: true, expect: true },
+        false: { arg: true, control: true, expect: true },
+        string: { arg: true, control: true, expect: true },
+        element: { arg: true, control: true, expect: true },
       },
       size: {
-        undefined: { arg: true, control: true },
-        set: { arg: true, control: true },
+        undefined: { arg: true, control: true, expect: true },
+        defined: { arg: true, control: true, expect: true },
       },
     },
     value: {
       children: {
-        undefined: { arg: false, control: true },
-        null: { arg: false, control: true },
-        true: { arg: true, control: true },
-        false: { arg: false, control: true },
-        string: { arg: true, control: true },
-        element: { arg: true, control: true },
+        undefined: { arg: false, control: true, expect: false },
+        null: { arg: false, control: true, expect: true },
+        true: { arg: true, control: true, expect: true },
+        false: { arg: false, control: true, expect: true },
+        string: { arg: true, control: true, expect: true },
+        element: { arg: true, control: true, expect: true },
       },
       size: {
-        undefined: { arg: false, control: false },
-        set: { arg: true, control: true },
+        undefined: { arg: false, control: false, expect: false },
+        defined: { arg: true, control: true, expect: true },
       },
     },
   },
@@ -180,8 +182,23 @@ type D = (typeof data)[number]
 type AC = D[`children`|`size`]
 type X = AC[keyof AC]
 
-function format ({ control, arg }: X) {
-  return `${withControl[control.toString()]}${withArg[arg.toString()]} ${control === arg ? good : bad}`
+function format ({ control, arg, expect }: X) {
+  return `${
+    withControl[control.toString()]
+  }${
+    control === arg
+    ? same
+    : different
+  }${
+    withArg[arg.toString()]
+  } ${
+    (
+      (control === expect)
+      && (arg === expect)
+    )
+    ? good
+    : bad
+  }`
 }
 
 const options = [
@@ -205,7 +222,7 @@ export default {
           ...options.map(v=>[`children`, v] as const),
           ...[
             `undefined`,
-            `set`,
+            `defined`,
           ].map(v=>[`size`, v] as const),
         ])
         .map(([prop, value]) => (`<abbr title="${prop}=${value}">${prop[0]}=${value[0]}</abbr>`))
@@ -216,7 +233,7 @@ export default {
         `${operator}: ${JSON.stringify(value)}`,
         ...options.map(o => format(children[o])),
         format(size.undefined),
-        format(size.set),
+        format(size.defined),
       ].join(` | `)).join(`|\n|`)}|
     `.replace(/^ +/gm, ``) } }
   },

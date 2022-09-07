@@ -37,15 +37,19 @@ strong {
 .control-hidden { color: grey }
 .arg-applied { color: blue }
 .arg-ignored { color: grey }
+.same { color: blue }
+.different { color: red }
 .good { color: green }
 .bad { color: red }
 
-.good, .bad { font-weight: bold }
+.different, .good, .bad { font-weight: bold }
 
 .control-shown,
 .control-hidden,
 .arg-applied,
 .arg-ignored,
+.same,
+.different,
 .good,
 .bad
 {
