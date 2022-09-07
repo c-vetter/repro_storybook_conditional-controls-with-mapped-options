@@ -37,17 +37,26 @@ strong {
 .control-hidden { color: grey }
 .arg-applied { color: blue }
 .arg-ignored { color: grey }
+.expect-true { color: blue }
+.expect-false { color: grey }
 .same { color: blue }
 .different { color: red }
 .good { color: green }
 .bad { color: red }
 
-.different, .good, .bad { font-weight: bold }
+.expect-true,
+.expect-false,
+.different,
+.good,
+.bad
+{ font-weight: bold }
 
 .control-shown,
 .control-hidden,
 .arg-applied,
 .arg-ignored,
+.expect-true,
+.expect-false,
 .same,
 .different,
 .good,

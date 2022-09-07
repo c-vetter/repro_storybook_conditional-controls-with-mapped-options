@@ -11,6 +11,8 @@ const same = `<abbr className="same" title="Control and Arg in sync">=</abbr>`
 const different = `<abbr className="different" title="Control and Arg out of sync">≠</abbr>`
 const good = `<abbr className="good" title="Control and Arg as expected">✔</abbr>`
 const bad = `<abbr className="bad" title="Control and Arg wrong">✘</abbr>`
+const expectTrue = `<abbr className="expect-true" title="Expect True">⊨</abbr>`
+const expectFalse = `<abbr className="expect-false" title="Expect False">⊭</abbr>`
 
 const withControl = {
   true: controlShown,
@@ -198,6 +200,10 @@ function format ({ control, arg, expect }: X) {
     )
     ? good
     : bad
+  } ${
+    expect
+    ? expectTrue
+    : expectFalse
   }`
 }
 
